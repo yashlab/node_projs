@@ -1,2 +1,3 @@
 #!/usr/bin/env sh
-node /home/pi/Projects/node_projs/quote_bot.js
+cd /home/pi/Projects/node_projs/
+node quote_bot.js
