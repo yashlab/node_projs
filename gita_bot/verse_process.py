@@ -186,15 +186,73 @@ def htm_2_img(verse):
 # In[4]:
 
 
+def meaning_img(verse):
+    html_cont = """
+    <!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="charset" content="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <style>
+            .grid-container {
+                display: inline-grid;
+                align-content: center;
+                grid-template-columns: 300px 300px;
+                background-color: #ffcad4;
+                
+            }
+
+            .grid-item {
+                bottom: 50%;
+                padding: 10px;                
+                text-align: center; 
+                border-radius: 0.8em; 
+                font-size: 1.3rem;
+                border:2px solid #cc2936;
+                margin-top: 5px;
+                /* width: 50%; */
+                
+            }
+            
+
+        </style>
+            
+    </head>
+    <body>
+        <div class = 'grid-container'>
+            <div class="grid-item" style="grid-column-end:3; grid-column-start: 1;"> <b> Word Meanings || शब्दार्थ </b> </div>
+            <span>
+                <div class="grid-item">""" + str(verse['4'].rstrip().replace('; ','<br>')) + """
+                </div>
+                <div class="grid-item"> """ + str(verse['5'].replace('(','<br>(')) + """
+                </div>
+            </span>            
+        </div>        
+    </body>
+</html>
+    
+    """
+    
+    with open('word_mean.html','w') as f:
+        f.write(html_cont)
+    f.close()
+    
+    imgkit.from_file('word_mean.html','meaning.png')
+
+
+# In[5]:
+
+
 #obatain next url
 def new_url(content):
     next_url = 'https://bhagavadgita.io'+str(content.find_all(class_ = 'btn btn-warning btn-rounded waves-effect waves-light')[1].get('href'))
-    print(next_url)
+    print('The next URL is : '+next_url)
     if (next_url.find('page')!=-1):
         next_url = url
-        print(next_url)
+        
         next_url = next_url[:-3] + '1/'
-        print(next_url)
+        
         temp = next_url.split('/')
         temp[-4] = str(int(url.split('/')[-4]) + 1)
         next_url = '/'.join(temp)
@@ -208,24 +266,48 @@ def new_url(content):
     
 
 
-# In[5]:
+# In[6]:
+
+
+def verse_details(verse):
+    with open('chap_details.json','r') as f:
+        chap = json.load(f)
+    ver_num = url.split('/')[-2]
+    ver_chap = chap[url.split('/')[-4]]
+    
+    verse.update({'chap':ver_chap,'number':ver_num})
+    return verse
+    
+
+
+# In[7]:
 
 
 import time
 
 url = open('verse_register.txt').read()
 url =url.rstrip().split('\n')[-1].split('->')[-1][1:-1]
+print('Current URL is: ' + url)
 content,verse = get_quote(url)
+verse = verse_details(verse)
+print(verse)
 new_url(content)
 htm_2_img(verse)
+meaning_img(verse)
 time.sleep(3)
     
 
 
-# In[6]:
+# In[8]:
 
 
 import json
 with open("current_verse.json", "w") as outfile: 
     json.dump(verse, outfile)
+
+
+# In[ ]:
+
+
+
 
