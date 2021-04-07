@@ -9,10 +9,6 @@ from bs4 import BeautifulSoup
 import imgkit,datetime
 import random,json
 
-
-# In[2]:
-
-
 def get_quote(url):
     '''
     Note: Credits for the absolutely amazing content goes to https://bhagavadgita.io/.
@@ -269,45 +265,12 @@ def new_url(content):
 # In[6]:
 
 
-def verse_details(verse):
+def verse_details(verse,url):
     with open('chap_details.json','r') as f:
         chap = json.load(f)
     ver_num = url.split('/')[-2]
     ver_chap = chap[url.split('/')[-4]]
     
-    verse.update({'chap':ver_chap,'number':ver_num})
+    verse.update({'chap_num':url.split('/')[-4],'chap':ver_chap,'number':ver_num})
     return verse
     
-
-
-# In[7]:
-
-
-import time
-
-url = open('verse_register.txt').read()
-url =url.rstrip().split('\n')[-1].split('->')[-1][1:-1]
-print('Current URL is: ' + url)
-content,verse = get_quote(url)
-verse = verse_details(verse)
-print(verse)
-new_url(content)
-htm_2_img(verse)
-meaning_img(verse)
-time.sleep(3)
-    
-
-
-# In[8]:
-
-
-import json
-with open("current_verse.json", "w") as outfile: 
-    json.dump(verse, outfile)
-
-
-# In[ ]:
-
-
-
-
