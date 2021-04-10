@@ -286,3 +286,5 @@ Thumbs.db #thumbnail cache on Windows
 verses/
 config.py
 current_verse.json
+client_id.json
+token.json
