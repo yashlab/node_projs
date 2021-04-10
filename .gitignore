@@ -288,3 +288,4 @@ config.py
 current_verse.json
 client_id.json
 token.json
+data_details.py
