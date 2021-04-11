@@ -61,11 +61,13 @@ def main():
     print(email_list)
     
     subject = 'Shloka for the Day!!'
-    files = ['meaning.jpeg']
+    files = ['quote.jpeg','meaning.jpeg']
     BODY_TEXT = ''' This is a placeholder text. '''
     HTML_TEXT = open('verse_html.html','r').read() # to load the quote as html
 
+    # HTML_TEXT = HTML_TEXT.replace('.svg','.png')
     print('<<SENDING EMAILS>>')
+    # print(HTML_TEXT)
 
     service_used = 'SES' # Choose between SES or G-Mail
     if service_used == 'G-Mail':
@@ -76,10 +78,10 @@ def main():
         send_message(service_mail,'me',msg)
     
     else:
+        # Incoprate SES based emailing
         ses_emailer(email_list,subject,BODY_TEXT,HTML_TEXT,files)
+        print('Help')
 
-    # Incoprate SES based emailing
-     
 
 if __name__ == '__main__':
     main()

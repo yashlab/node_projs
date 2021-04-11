@@ -14,9 +14,6 @@ from config import *
 from verse_process import *
 
 
-# In[ ]:
-
-
 # read from register to fetch today's verse url
 url = open('verse_register.txt').read()
 url =url.rstrip().split('\n')[-1].split('->')[-1][1:-1]
@@ -33,18 +30,10 @@ meaning_img(verse)
 # take a pause
 time.sleep(3)
 
-
-# In[3]:
-
-
 # to build data (you may avoid)
 import json
 with open("verses/{}_{}.json".format(verse['chap_num'],verse['number']), "w") as outfile: 
     json.dump(verse, outfile)
-
-
-# In[4]:
-
 
 # Authenticate to Twitter
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
@@ -69,12 +58,12 @@ hashtags = '\n\n #krishna #iskcon #gita #god #divine #faith #vibe'
 
 
 # Upload image
-# media1 = api.media_upload("quote.jpeg")
-# media2 = api.media_upload("meaning.jpeg")
+media1 = api.media_upload("quote.jpeg")
+media2 = api.media_upload("meaning.jpeg")
  
 # Post tweet with image
 tweet = "Python Check"
-# post_result = api.update_status(status=status_content+hashtags, media_ids=[media1.media_id,media2.media_id])
+post_result = api.update_status(status=status_content+hashtags, media_ids=[media1.media_id,media2.media_id])
 
 
 # In[7]:

@@ -3,7 +3,7 @@ import email.utils
 from email.mime.multipart import MIMEMultipart
 from email.mime.image import MIMEImage
 from email.mime.text import MIMEText
-import mimetypes,os,base64
+import mimetypes,os,base64,random
 from aws_ses_creds import * 
 '''
 This file will contain the following:
@@ -20,13 +20,11 @@ def ses_emailer(RECIPIENT,SUBJECT,BODY_TEXT,HTML_TEXT,files):
 
     '''
     RECIPIENT : a python list object of proposed recipients (if SES is in sandbox, all emails must be verified.)
+    SUBJECT: subject of the email.
+    BODY_TEXT: The text of the body
+    HTML_TEXT: The html content to be embedded. (It somehow overwrites the body_text if put in.)
+    files: a python list of files to be attached. 
     '''
-
-    # receivers = ''
-    # for i in RECIPIENT:
-    #     receivers = i + ',' 
-    # receivers = receivers[:-1]
-    # print(receivers)
     
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
@@ -35,17 +33,33 @@ def ses_emailer(RECIPIENT,SUBJECT,BODY_TEXT,HTML_TEXT,files):
     msg['Bcc'] = RECIPIENT
     msg['reply-to'] = REPLY_EMAIL
     
+    part1 = MIMEText(BODY_TEXT, 'plain')
+
+    attachment = './images/k{}.png'.format(random.randint(1,5))
+
+    htm_cnt = (HTML_TEXT[:HTML_TEXT.find('src')] + '''src="cid:{}" '''.format(attachment) + HTML_TEXT[HTML_TEXT.find('alt'):])
+
+    msgText = MIMEText(htm_cnt, 'html') 
+
+    fp = open(attachment, 'rb')                                                    
+    img = MIMEImage(fp.read())
+    fp.close()
+    img.add_header('Content-ID', '<{}>'.format(attachment))
 
     # Record the MIME types of both parts - text/plain and text/html.
-    part1 = MIMEText(BODY_TEXT, 'plain')
-    part2 = MIMEText(HTML_TEXT, 'html')
+    
+    # part2 = MIMEText(HTML_TEXT, 'html')
 
     # Attach parts into message container.
     # According to RFC 2046, the last part of a multipart message, in this case
     # the HTML message, is best and preferred.
     msg.attach(part1)
-    msg.attach(part2)
+    msg.attach(msgText)
 
+    ## to embed image in html email
+    
+    msg.attach(img)
+    
     for file in files:
         content_type, encoding = mimetypes.guess_type(file)
 
