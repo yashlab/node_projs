@@ -22,5 +22,5 @@ NOTE: Make sure you are in the Gita bot directory before running any scripts.
 
 ## Sample Outputs
 
-![](quote.png)
-![](meaning.png)
+![](quote.jpeg)
+![](meaning.jpeg)
