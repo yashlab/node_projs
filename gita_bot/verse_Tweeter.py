@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
+# Posts the verse and meaning images on twitter.
 
 # import all dependencies
 import tweepy
@@ -13,9 +12,6 @@ import random,json
 
 from config import *
 from verse_process import *
-
-
-# In[ ]:
 
 
 # read from register to fetch today's verse url
@@ -34,18 +30,10 @@ meaning_img(verse)
 # take a pause
 time.sleep(3)
 
-
-# In[3]:
-
-
 # to build data (you may avoid)
 import json
 with open("verses/{}_{}.json".format(verse['chap_num'],verse['number']), "w") as outfile: 
     json.dump(verse, outfile)
-
-
-# In[4]:
-
 
 # Authenticate to Twitter
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
@@ -70,8 +58,8 @@ hashtags = '\n\n #krishna #iskcon #gita #god #divine #faith #vibe'
 
 
 # Upload image
-media1 = api.media_upload("quote.png")
-media2 = api.media_upload("meaning.png")
+media1 = api.media_upload("quote.jpeg")
+media2 = api.media_upload("meaning.jpeg")
  
 # Post tweet with image
 tweet = "Python Check"
