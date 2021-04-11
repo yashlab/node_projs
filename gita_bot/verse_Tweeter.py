@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
+# Posts the verse and meaning images on twitter.
 
 # import all dependencies
 import tweepy
@@ -70,12 +69,12 @@ hashtags = '\n\n #krishna #iskcon #gita #god #divine #faith #vibe'
 
 
 # Upload image
-media1 = api.media_upload("quote.png")
-media2 = api.media_upload("meaning.png")
+# media1 = api.media_upload("quote.jpeg")
+# media2 = api.media_upload("meaning.jpeg")
  
 # Post tweet with image
 tweet = "Python Check"
-post_result = api.update_status(status=status_content+hashtags, media_ids=[media1.media_id,media2.media_id])
+# post_result = api.update_status(status=status_content+hashtags, media_ids=[media1.media_id,media2.media_id])
 
 
 # In[7]:
