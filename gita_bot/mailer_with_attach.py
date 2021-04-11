@@ -28,7 +28,7 @@ def create_message(sender, to, subject, message_text):
   return {'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()}
 
 def create_message_with_attachment(
-    sender, to, subject, message_text, files):
+    sender, to, subject, message_text,html_text, files):
   """Create a message for an email.
 
   Args:
@@ -47,7 +47,9 @@ def create_message_with_attachment(
   message['subject'] = subject
 
   msg = MIMEText(message_text)
+  part2 = MIMEText(html_text, 'html')
   message.attach(msg)
+  message.attach(part2)
 
   for file in files:
     content_type, encoding = mimetypes.guess_type(file)

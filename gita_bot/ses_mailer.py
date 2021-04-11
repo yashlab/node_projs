@@ -16,31 +16,29 @@ This file will contain the following:
     * PORT : the port to be used
 '''
 
-def ses_emailer(RECIPIENT,SUBJECT,files):
+def ses_emailer(RECIPIENT,SUBJECT,BODY_TEXT,HTML_TEXT,files):
 
     '''
     RECIPIENT : a python list object of proposed recipients (if SES is in sandbox, all emails must be verified.)
     '''
 
-    receivers = ''
-    for i in RECIPIENT:
-        receivers = i + ',' 
-    receivers = receivers[:-1]
-    
-    BODY_TEXT = ''' This is a placeholder text. '''
-    QUOTE_HTML = open('verse_html.html','r').read() # to load the quote as html
+    # receivers = ''
+    # for i in RECIPIENT:
+    #     receivers = i + ',' 
+    # receivers = receivers[:-1]
+    # print(receivers)
     
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
     msg['Subject'] = SUBJECT
     msg['From'] = email.utils.formataddr((SENDERNAME, SENDER))
-    msg['Bcc'] = receivers
+    msg['Bcc'] = RECIPIENT
     msg['reply-to'] = REPLY_EMAIL
     
 
     # Record the MIME types of both parts - text/plain and text/html.
     part1 = MIMEText(BODY_TEXT, 'plain')
-    part2 = MIMEText(QUOTE_HTML, 'html')
+    part2 = MIMEText(HTML_TEXT, 'html')
 
     # Attach parts into message container.
     # According to RFC 2046, the last part of a multipart message, in this case

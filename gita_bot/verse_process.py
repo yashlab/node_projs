@@ -45,7 +45,7 @@ def get_quote(url):
 def htm_2_img(verse):
     import random
     background_colors = ['#ffb703','#E072A4','#ef476f','#43aa8b','#264653','#2A9D8F','#E9C46A','#F4A261']
-    krishna_pics = ['images/k'+str(i)+'.svg' for i in range(1,6)]
+    krishna_pics = ['./images/k'+str(i)+'.svg' for i in range(1,6)]
     html_cont = """
     <!DOCTYPE html>
     <html>

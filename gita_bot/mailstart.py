@@ -5,17 +5,20 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 import mimetypes
+
 from mailer_with_attach import *
+from ses_mailer import * #sends the html formatted mail from AWS SES
 from data_details import * # data details consists of only the spreadsheet_id and the data range. Hidden here for privacy.
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/gmail.send' , #for sending emails,
-          'https://www.googleapis.com/auth/gmail.readonly',
+          'https://www.googleapis.com/auth/gmail.readonly', # only used if using GMail API
           'https://www.googleapis.com/auth/spreadsheets.readonly' #for reading the subscribers
           ]
 
 def main():
-    creds = None
+    ################################ HANDLE TOKENS ################################
+    creds = None    
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
@@ -33,7 +36,7 @@ def main():
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
 
-    service_mail = build('gmail', 'v1', credentials=creds)
+    ################################ CREATION OF SERVICE ################################ 
     service_data_access = build('sheets', 'v4', credentials=creds)
 
     sheet = service_data_access.spreadsheets()
@@ -55,14 +58,30 @@ def main():
     for i in values:
         email_list = email_list + i[0] + ','
     email_list = email_list[:-1] 
+    print(email_list)
     
+    subject = 'Shloka for the Day!!'
+    files = ['meaning.jpeg']
+    BODY_TEXT = ''' This is a placeholder text. '''
+    HTML_TEXT = open('verse_html.html','r').read() # to load the quote as html
 
-    # Call the Gmail API
-    msg = create_message_with_attachment('yashlaboratoire@gmail.com',email_list,'OAuth Based E-Mail','This is sent via app and VS!!',['quote.png','meaning.png'])
-    send_message(service_mail,'me',msg)
+    print('<<SENDING EMAILS>>')
+
+    service_used = 'SES' # Choose between SES or G-Mail
+    if service_used == 'G-Mail':
+            # Call the Gmail API
+        service_mail = build('gmail', 'v1', credentials=creds)
+        sender_email =''
+        msg = create_message_with_attachment(sender_email,email_list,subject,BODY_TEXT,HTML_TEXT,files)
+        send_message(service_mail,'me',msg)
+    
+    else:
+        ses_emailer(email_list,subject,BODY_TEXT,HTML_TEXT,files)
+
+    # Incoprate SES based emailing
+     
 
 if __name__ == '__main__':
     main()
-
 
 
