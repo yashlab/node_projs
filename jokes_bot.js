@@ -13,7 +13,7 @@ var client = new twit({
 axios("https://official-joke-api.appspot.com/random_joke").then(Response => {
 	return [Response.data.type, Response.data.setup, Response.data.punchline];
 }).then(([type,setup, punch]) => {
-	client.post('statuses/update', {status:  'Joke Bot Tweets.\nHere is a(n) '+ `${type}` +' joke.\n' + `${setup}\n\n\n${punch}` + '#joke #fun #follow 😁😆'}, function(error, tweet, response){
+	client.post('statuses/update', {status:  'Joke Bot Tweets.\nHere is a(n) '+ `${type}` +' joke.\n' + `${setup}\n\n\n${punch}` + '#joke #fun #covid #vaccine #lockdown 😁😆'}, function(error, tweet, response){
 		if(!error){
 			console.log(tweet);
 		}
