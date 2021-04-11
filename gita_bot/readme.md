@@ -19,3 +19,8 @@ NOTE: Make sure you are in the Gita bot directory before running any scripts.
 	- Functions:
 		- fetches the recipients list from Google Sheets API.
 		- sends emails to the recipients using either G-Mail or Amazon SES.
+
+## Sample Outputs
+
+![](quote.png)
+![](verse.png)
