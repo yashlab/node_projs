@@ -37,7 +37,6 @@ I would really like to thank: [Bhagvad Gita](https://bhagavadgita.io/). This wou
 
 ![](quote.jpeg)
 ![](meaning.jpeg)
-<<<<<<< HEAD
 
 ## Inner .py Scripts Details:
 - verse_process.py
@@ -58,5 +57,3 @@ I would really like to thank: [Bhagvad Gita](https://bhagavadgita.io/). This wou
 - aws_ses_creds.py: AWS SES credentials in additon to the Sender Name and custom domain sender id.
 - data_details.py: Holds spreadsheet id and data ranges for your data in Google Spreadsheets.
 - token.json: created automatically to connect to google APIs in future once OAuth authentication is successful. 
-=======
->>>>>>> 32befe3b17ad667bdb8201672ed9cb1336c56a1c
