@@ -1,0 +1,15 @@
+requests
+bs4 
+imgkit
+datetime
+random
+json
+tweepy
+time
+email
+os
+base64
+google_auth_oauthlib
+googleapiclient
+google
+mimetypes
