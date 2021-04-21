@@ -177,6 +177,7 @@ def htm_2_img(verse):
     f.close()
     
     imgkit.from_file('verse_html.html','quote.jpeg')
+    imgkit.from_file('verse_html.html','quote.png')
 
 
 # In[4]:
@@ -235,6 +236,7 @@ def meaning_img(verse):
     f.close()
     
     imgkit.from_file('word_mean.html','meaning.jpeg')
+    imgkit.from_file('word_mean.html','meaning.png')
 
 
 # In[5]:

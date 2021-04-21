@@ -47,19 +47,19 @@ api = tweepy.API(auth)
 
 
 # prepare content
-status_content = 'Chapter {}: {} | {}\nVerse No:{}'.format(verse['chap_num'],
+status_content = 'ॐ\nChapter {}: {} | {}\nVerse No:{}'.format(verse['chap_num'],
                                               verse['chap'].split('\n')[0],
                                               verse['chap'].split('\n')[1],verse['number'])
 
-hashtags = '\n\n #krishna #iskcon #gita #god #divine #faith #vibe'
+hashtags = '\n\n #krishna #iskcon #gita #god #divine #faith #wisdom'
 
 
 # In[6]:
 
 
 # Upload image
-media1 = api.media_upload("quote.jpeg")
-media2 = api.media_upload("meaning.jpeg")
+media1 = api.media_upload("quote.png")
+media2 = api.media_upload("meaning.png")
  
 # Post tweet with image
 tweet = "Python Check"
