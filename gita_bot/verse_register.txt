@@ -1,2 +1,4 @@
 2021-04-07->'https://bhagavadgita.io/chapter/1/verse/1/'
-2021-04-12->'https://bhagavadgita.io/chapter/1/verse/2/'
+2021-04-21->'https://bhagavadgita.io/chapter/1/verse/2/'
+2021-04-21->'https://bhagavadgita.io/chapter/1/verse/3/'
+2021-04-21->'https://bhagavadgita.io/chapter/1/verse/4/'
