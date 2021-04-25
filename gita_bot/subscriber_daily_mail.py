@@ -72,19 +72,19 @@ if not values:
     print('No data found.')
 else:
     print('DATA FOUND')
-    subs_df = pd.DataFrame(data=values,columns=['Email','FName','Phone','URL'])
+    subs_df = pd.DataFrame(data=values,columns=['Email','FName','Phone','Comment','URL'])
     unsubs = sheet.values().get(spreadsheetId=gita_spread_sheet_id , #obtained from data_details,
                                 range=unsubscribers).execute().get('values')
     unsubs_series = pd.Series(unsubs,name='Unsubs').apply(lambda x: x[0])
 
 
-# In[7]:
+# In[8]:
 
 
 subs_df['URL'].fillna('https://bhagavadgita.io/chapter/1/verse/1/',inplace=True)
 
 
-# In[8]:
+# In[10]:
 
 
 def url_update(content):
@@ -103,7 +103,7 @@ def url_update(content):
     return next_url
 
 
-# In[9]:
+# In[11]:
 
 
 for i in range(len(subs_df)): #
@@ -133,7 +133,7 @@ for i in range(len(subs_df)): #
         BODY_TEXT = ''' This is a placeholder text. '''
         HTML_TEXT = str(open('mail_content.html','r').read()) # to load the quote as html
 
-        HTML_TEXT = HTML_TEXT.format(fname=subs_df.loc[i,'FName'],
+        HTML_TEXT = HTML_TEXT.format(fname=subs_df.loc[i,'FName'].split(' ')[0].title(),
                          time = 'Evening' if datetime.datetime.now().hour > 12 else 'Morning',
                          chap = verse['chap'].replace('\n',' || '),
                          verse_num = verse['number']              
@@ -151,11 +151,13 @@ for i in range(len(subs_df)): #
             send_message(service_mail,'me',msg)
 
         else:
+            print('Done')
             # Incoprate SES based emailing
             ses_emailer(subs_df.loc[i,'Email'],subject,BODY_TEXT,HTML_TEXT,files)
+    
 
 
-# In[11]:
+# In[12]:
 
 
 #update next verse URL for each subscriber
@@ -165,8 +167,7 @@ body = {'majorDimension':'COLUMNS',
        }
 result = service_data_access.spreadsheets().values().update(
     spreadsheetId=gita_spread_sheet_id,
-    range='Subscribers!E2',
+    range='Subscribers!F2',
     valueInputOption='USER_ENTERED',
     body=body).execute()
 # print('{0} cells updated.'.format(result.get('updatedCells')))
-
