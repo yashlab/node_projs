@@ -4,9 +4,12 @@ While discovering the twitter API and observing my mother reading SBG, I thought
 engaging than my expectations.
 I would really like to thank: [Bhagvad Gita](https://bhagavadgita.io/). This would surely not been possible without it.
 
+Sign up for two shlokas a day [here]("https://forms.gle/feWgtxezbS7xEbAF6").
+
 ### Tech and Concepts:
 - Web Scraping using Python (Beautiful Soup).
 - MIME (Multipurpose Internet Mail Extensions) Mail structure.
+- Google Sheets API v4 for managing subscription lists.
 - Working of a SMTP servers.
 - Using AWS Simple Email Service (SES) for bulk emails.
 - Using ```tweepy``` python library to access twitter API.
@@ -24,14 +27,18 @@ I would really like to thank: [Bhagvad Gita](https://bhagavadgita.io/). This wou
 		* generates html and images for verse and meanings
 		* updates the register with today date and next verse URL
 		 
-2. mailstart.py
+2. sub_mail_process.py (Discontinued & Depreciated)
 	- Dependency:
 		- mailer_with_attach.py : 
 		- data_details.py
 		- ses_mailer.py
+		- verse_process.py
 	- Functions:
 		- fetches the recipients list from Google Sheets API.
+		- fetches quote information for each subscriber.
+		- generates images to be sent.
 		- sends emails to the recipients using either G-Mail or Amazon SES.
+		- updates the URL for the next verse to be sent.
 
 ## Sample Outputs
 
@@ -55,5 +62,5 @@ I would really like to thank: [Bhagvad Gita](https://bhagavadgita.io/). This wou
 - config.py : Holds information of twitter API access credentials.
 - client_id.json : Holds Google API credentials.
 - aws_ses_creds.py: AWS SES credentials in additon to the Sender Name and custom domain sender id.
-- data_details.py: Holds spreadsheet id and data ranges for your data in Google Spreadsheets.
+- data_details.py: Holds spreadsheet id and data ranges for subscriber and unsubscriber data in Google Spreadsheets.
 - token.json: created automatically to connect to google APIs in future once OAuth authentication is successful. 
