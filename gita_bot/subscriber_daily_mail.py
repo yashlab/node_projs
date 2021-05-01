@@ -1,17 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
+from __future__ import print_function
 import warnings
 warnings.filterwarnings("ignore")
-
-
-# In[2]:
-
-
-from __future__ import print_function
 import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -52,7 +44,7 @@ if not creds or not creds.valid:
     if creds and creds.expired and creds.refresh_token:
         creds.refresh(Request())
     else:
-        flow = InstalledAppFlow.from_client_secrets_file('../client_id.json', SCOPES)
+        flow = InstalledAppFlow.from_client_secrets_file('client_id.json', SCOPES)
         creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
     with open('token.json', 'w') as token:
@@ -153,7 +145,7 @@ for i in range(len(subs_df)): #
         else:
             print('Done')
             # Incoprate SES based emailing
-            ses_emailer(subs_df.loc[i,'Email'],subject,BODY_TEXT,HTML_TEXT,files)
+            # ses_emailer(subs_df.loc[i,'Email'],subject,BODY_TEXT,HTML_TEXT,files)
     
 
 
